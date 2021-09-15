@@ -6,18 +6,20 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class HomeViewController: UIViewController {
     //MARK:- Outlets
     @IBOutlet private weak var helloLabel: UILabel!
     
     //MARK:- Variable
-    var username = ""
+    var username = BehaviorRelay<String?>(value: "")
     
     //MARK:- View Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        helloLabel.text = "Hello \(username)"
+        helloLabel.text = "Hello \(username.value ?? "")"
     }
     
 }

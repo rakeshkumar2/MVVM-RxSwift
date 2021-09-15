@@ -20,42 +20,46 @@ struct LoginTextFieldError {
 }
 
 class LoginViewModel{
+    
     let error: PublishSubject<LoginTextFieldError> = PublishSubject()
-    let isLoginButtonEnable: PublishSubject<Bool> = PublishSubject()
-   
-    private let disposable = DisposeBag()
-   
-    func validateFields(usernameString: String, passwordString: String){
-        self.isLoginButtonEnable.onNext(false)
-        
-        error.onNext(LoginTextFieldError(type: .username, errorString: ""))
-        
-        error.onNext(LoginTextFieldError(type: .password, errorString: ""))
-        
-        if passwordString.isEmpty && usernameString.isEmpty{
+    
+    let username = BehaviorRelay<String?>(value: "")
+    let password = BehaviorRelay<String?>(value: "")
+    
+    var isLoginButtonEnable: Observable<Bool> {
+        //Validate fields
+        return Observable.combineLatest(username, password) { name, password in
             
-            self.isLoginButtonEnable.onNext(false)
+            self.error.onNext(LoginTextFieldError(type: .username, errorString: ""))
             
-        }else if !Validations().isValidUserName(username: usernameString) && !usernameString.isEmpty{
+            self.error.onNext(LoginTextFieldError(type: .password, errorString: ""))
             
-            error.onNext(LoginTextFieldError(type: .username, errorString: Constants.AthenticationErrorMessage.incorrectUserName))
-            
-            if !Validations().isValidPassword(password: passwordString) && !passwordString.isEmpty{
-                
-                error.onNext(LoginTextFieldError(type: .password, errorString: Constants.AthenticationErrorMessage.incorrectPassword))
-                
+            guard name != nil && password != nil else {
+                return false
             }
+            if !Validations().isValidUserName(username: name!) && !name!.isEmpty{
+                
+                self.error.onNext(LoginTextFieldError(type: .username, errorString: Constants.AthenticationErrorMessage.incorrectUserName))
+                
+                if !Validations().isValidPassword(password: password!) && !password!.isEmpty{
+                    
+                    self.error.onNext(LoginTextFieldError(type: .password, errorString: Constants.AthenticationErrorMessage.incorrectPassword))
+                    
+                }
+                return false
+            }else if !Validations().isValidPassword(password: password!) && !password!.isEmpty{
+                
+                self.error.onNext(LoginTextFieldError(type: .password, errorString: Constants.AthenticationErrorMessage.incorrectPassword))
+                return false
+            }else if !password!.isEmpty && !name!.isEmpty{
             
-        }else if !Validations().isValidPassword(password: passwordString) && !passwordString.isEmpty{
-            
-            error.onNext(LoginTextFieldError(type: .password, errorString: Constants.AthenticationErrorMessage.incorrectPassword))
-            
-        }else if !passwordString.isEmpty && !usernameString.isEmpty{
-            
-            isLoginButtonEnable.onNext(true)
-            
+                print("Username:- \(self.username.value ?? "")")
+                print("Password:- \(self.password.value ?? "")")
+                return true
+            }
+            return false
         }
-      
     }
+   
 }
 

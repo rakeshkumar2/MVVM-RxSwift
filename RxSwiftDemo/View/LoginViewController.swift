@@ -14,7 +14,7 @@ class LoginViewController: UIViewController {
     @IBOutlet private weak var passwordTextField: UITextField!
     @IBOutlet private weak var loginButton: UIButton!
     @IBOutlet private weak var userNameErrorLabel: UILabel!
-    @IBOutlet weak var passwordErrorLabel: UILabel!
+    @IBOutlet private weak var passwordErrorLabel: UILabel!
     @IBOutlet private weak var userNameTextField: UITextField!
    
     
@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let homeVC = segue.destination as? HomeViewController{
-            homeVC.username = userNameTextField.text!
+            homeVC.username = self.loginViewModel.username
         }
     }
     
@@ -41,8 +41,16 @@ class LoginViewController: UIViewController {
         title = "Login"
         self.userNameTextField.setLeftPaddingPoints(15)
         self.passwordTextField.setLeftPaddingPoints(15)
-        //Handler Errors
-        loginViewModel.error.observe(on: MainScheduler.instance).subscribe(onNext: { (error) in
+        
+        //User name Text field text binding
+        self.userNameTextField.rx.text.bind(to: self.loginViewModel.username).disposed(by: disposeBag)
+       
+        //password text field text binding
+        self.passwordTextField.rx.text.bind(to: self.loginViewModel.password).disposed(by: disposeBag)
+        
+        //Error handling
+        loginViewModel.error.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] (error) in
+            guard let self = self else{return}
             switch error.type{
             case .username:
                 self.userNameErrorLabel.isHidden = error.errorString.isEmpty
@@ -53,24 +61,15 @@ class LoginViewController: UIViewController {
             }
         }).disposed(by: disposeBag)
         
-        //Login button click
-        Observable.of(loginButton.rx.tap).merge().observe(on: MainScheduler.instance).subscribe(onNext: {
-            self.performSegue(withIdentifier: "homeSegue", sender: nil)
-        }).disposed(by: disposeBag)
-        
-        //User name Text field text change event
-        Observable.of(userNameTextField.rx.controlEvent(.editingChanged)).merge().subscribe(onNext:{ text in
-            self.loginViewModel.validateFields(usernameString: self.userNameTextField.text!, passwordString: self.passwordTextField.text!)
-        }).disposed(by: disposeBag)
-        
-        //password text field text change event
-        Observable.of(passwordTextField.rx.controlEvent(.editingChanged)).merge().subscribe(onNext:{
-            self.loginViewModel.validateFields(usernameString: self.userNameTextField.text!, passwordString: self.passwordTextField.text!)
+        //Login button click Observer
+        Observable.of(loginButton.rx.tap).merge().observe(on: MainScheduler.instance).subscribe(onNext: {[weak self] _ in
+            guard let self = self else{return}
+            self.performSegue(withIdentifier: Constants.SegueIDs.home, sender: nil)
         }).disposed(by: disposeBag)
         
         //Enable disable login button subscriber
-        loginViewModel.isLoginButtonEnable.subscribe(onNext: {isLoginButtonEnable in
-            print(isLoginButtonEnable)
+        loginViewModel.isLoginButtonEnable.observe(on: MainScheduler.instance).subscribe(onNext: {[weak self] isLoginButtonEnable in
+            guard let self = self else{return}
             self.loginButton.isEnabled = isLoginButtonEnable
             self.loginButton.alpha = isLoginButtonEnable ? 1 : 0.6
         }).disposed(by: disposeBag)
