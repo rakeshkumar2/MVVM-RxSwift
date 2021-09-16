@@ -17,7 +17,6 @@ class LoginViewController: UIViewController {
     @IBOutlet private weak var passwordErrorLabel: UILabel!
     @IBOutlet private weak var userNameTextField: UITextField!
    
-    
     //MARK:- Variables
     private var loginViewModel = LoginViewModel()
     
@@ -32,7 +31,7 @@ class LoginViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let homeVC = segue.destination as? HomeViewController{
-            homeVC.username = self.loginViewModel.username
+            homeVC.username = self.userNameTextField.text!
         }
     }
     
@@ -43,38 +42,27 @@ class LoginViewController: UIViewController {
         self.passwordTextField.setLeftPaddingPoints(15)
         
         //User name Text field text binding
-        self.userNameTextField.rx.text.bind(to: self.loginViewModel.username).disposed(by: disposeBag)
+        self.userNameTextField.rx.text.asObservable().map{$0 ?? ""}.bind(to: self.loginViewModel.username).disposed(by: disposeBag)
        
         //password text field text binding
-        self.passwordTextField.rx.text.bind(to: self.loginViewModel.password).disposed(by: disposeBag)
+        self.passwordTextField.rx.text.asObservable().map{$0 ?? ""}.bind(to: self.loginViewModel.password).disposed(by: disposeBag)
         
-        //Error handling
-        loginViewModel.error.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] (error) in
-            guard let self = self else{return}
-            switch error.type{
-            case .username:
-                self.userNameErrorLabel.isHidden = error.errorString.isEmpty
-                self.userNameErrorLabel.text = error.errorString
-            case .password:
-                self.passwordErrorLabel.isHidden = error.errorString.isEmpty
-                self.passwordErrorLabel.text = error.errorString
-            }
-        }).disposed(by: disposeBag)
+        //login button binding
+        loginViewModel.isLoginButtonEnable.map{$0 ? 1 : 0.4}.bind(to: loginButton.rx.alpha).disposed(by: disposeBag)
         
-        //Login button click Observer
-        Observable.of(loginButton.rx.tap).merge().observe(on: MainScheduler.instance).subscribe(onNext: {[weak self] _ in
-            guard let self = self else{return}
-            self.performSegue(withIdentifier: Constants.SegueIDs.home, sender: nil)
-        }).disposed(by: disposeBag)
+        loginViewModel.isLoginButtonEnable.bind(to: loginButton.rx.isEnabled).disposed(by: disposeBag)
         
-        //Enable disable login button subscriber
-        loginViewModel.isLoginButtonEnable.observe(on: MainScheduler.instance).subscribe(onNext: {[weak self] isLoginButtonEnable in
-            guard let self = self else{return}
-            self.loginButton.isEnabled = isLoginButtonEnable
-            self.loginButton.alpha = isLoginButtonEnable ? 1 : 0.6
-        }).disposed(by: disposeBag)
+        //Binding error labels
+        loginViewModel.isUsernameError.bind(to: userNameErrorLabel.rx.isHidden).disposed(by: disposeBag)
+        
+        loginViewModel.isPasswordError.bind(to: passwordErrorLabel.rx.isHidden).disposed(by: disposeBag)
+        
     }
    
+    //MARK:- Button Actions
+    @IBAction private func loginButtonClicked(_ sender: UIButton) {
+        self.performSegue(withIdentifier: Constants.SegueIDs.home, sender: nil)
+    }
     
 }
 

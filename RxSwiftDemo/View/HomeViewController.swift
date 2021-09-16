@@ -14,12 +14,12 @@ class HomeViewController: UIViewController {
     @IBOutlet private weak var helloLabel: UILabel!
     
     //MARK:- Variable
-    var username = BehaviorRelay<String?>(value: "")
+    var username = ""
     
     //MARK:- View Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        helloLabel.text = "Hello \(username.value ?? "")"
+        helloLabel.text = "Hello \(username)"
     }
     
 }

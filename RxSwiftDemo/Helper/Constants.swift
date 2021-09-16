@@ -9,11 +9,6 @@ import Foundation
 
 struct Constants {
     
-    struct AthenticationErrorMessage {
-        static let incorrectPassword = "Password not meeting the criteria"
-        static let incorrectUserName = "Enter proper user name"
-    }
-    
     struct SegueIDs {
         static let home = "homeSegue"
     }

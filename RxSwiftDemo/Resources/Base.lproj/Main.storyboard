@@ -16,15 +16,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JVE-q5-eWZ">
-                                <rect key="frame" x="30" y="500" width="354" height="16"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password not meeting the criteria" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JVE-q5-eWZ">
+                                <rect key="frame" x="30" y="318" width="354" height="16"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" systemColor="systemRedColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DcK-ak-pBb">
-                                <rect key="frame" x="30" y="450" width="354" height="50"/>
+                                <rect key="frame" x="30" y="268" width="354" height="50"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="rCO-NG-1ER"/>
@@ -38,7 +38,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WY0-mn-gd3">
-                                <rect key="frame" x="30" y="540" width="354" height="50"/>
+                                <rect key="frame" x="30" y="358" width="354" height="50"/>
                                 <color key="backgroundColor" systemColor="systemPinkColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="4n1-ch-D9y"/>
@@ -52,9 +52,12 @@
                                         <integer key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="loginButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="92B-ZA-Olp"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="User name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pwu-SV-50E">
-                                <rect key="frame" x="30" y="370" width="354" height="50"/>
+                                <rect key="frame" x="30" y="188" width="354" height="50"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="PGL-qA-iKl"/>
@@ -67,8 +70,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qoI-Xr-uvc">
-                                <rect key="frame" x="30" y="420" width="354" height="16"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter proper user name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qoI-Xr-uvc">
+                                <rect key="frame" x="30" y="238" width="354" height="16"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" systemColor="systemRedColor"/>
@@ -84,8 +87,8 @@
                             <constraint firstItem="qoI-Xr-uvc" firstAttribute="trailing" secondItem="pwu-SV-50E" secondAttribute="trailing" id="TGK-8h-t9e"/>
                             <constraint firstItem="DcK-ak-pBb" firstAttribute="trailing" secondItem="pwu-SV-50E" secondAttribute="trailing" id="YL4-JZ-NVT"/>
                             <constraint firstItem="DcK-ak-pBb" firstAttribute="leading" secondItem="pwu-SV-50E" secondAttribute="leading" id="Zne-a7-OZ0"/>
-                            <constraint firstItem="DcK-ak-pBb" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="baq-UC-c95"/>
                             <constraint firstItem="JVE-q5-eWZ" firstAttribute="top" secondItem="DcK-ak-pBb" secondAttribute="bottom" id="bdS-b3-MhZ"/>
+                            <constraint firstItem="pwu-SV-50E" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="cMK-1Z-yFM"/>
                             <constraint firstItem="JVE-q5-eWZ" firstAttribute="leading" secondItem="DcK-ak-pBb" secondAttribute="leading" id="eip-P4-G2L"/>
                             <constraint firstItem="DcK-ak-pBb" firstAttribute="top" secondItem="pwu-SV-50E" secondAttribute="bottom" constant="30" id="gzR-iV-P1J"/>
                             <constraint firstItem="WY0-mn-gd3" firstAttribute="trailing" secondItem="DcK-ak-pBb" secondAttribute="trailing" id="hIO-y8-JOs"/>
