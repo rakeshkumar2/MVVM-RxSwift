@@ -23,6 +23,7 @@
 		2E599D9026F372FC00BD11A3 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E81AA9326F0D05900691E5A /* RxCocoa.framework */; };
 		2E599D9326F372FE00BD11A3 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E81AA9426F0D05900691E5A /* RxRelay.framework */; };
 		2E599D9526F372FF00BD11A3 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E81AA8F26F0CCD100691E5A /* RxSwift.framework */; };
+		2E5C964226F4611700FEED39 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5C964126F4611700FEED39 /* UserModel.swift */; };
 		2E81AA8E26F0CC6C00691E5A /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E81AA8D26F0CC6C00691E5A /* LoginViewModel.swift */; };
 		9BFC5D6F5C54777C4BFBEF93 /* Pods_RxSwiftDemo_RxSwiftDemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 255F12E79E456A6212D01499 /* Pods_RxSwiftDemo_RxSwiftDemoUITests.framework */; };
 		B4A208EEB54D5FF479407CFD /* Pods_RxSwiftDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C36C9F202DFD9DBF538C57CB /* Pods_RxSwiftDemoTests.framework */; };
@@ -65,6 +66,7 @@
 		2E45B89A26F0C9A000EDF262 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E59085326F0E53200C709E6 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		2E59085626F0E96300C709E6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		2E5C964126F4611700FEED39 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		2E81AA8D26F0CC6C00691E5A /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		2E81AA8F26F0CCD100691E5A /* RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E81AA9326F0D05900691E5A /* RxCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,6 +157,7 @@
 		2E45B87526F0C99F00EDF262 /* RxSwiftDemo */ = {
 			isa = PBXGroup;
 			children = (
+				2E5C964026F4610500FEED39 /* Model */,
 				2E04DA9726F1CE9A00B6574D /* AppInitials */,
 				2E04DA9626F1CE7B00B6574D /* Resources */,
 				2E59085526F0E95500C709E6 /* Helper */,
@@ -207,6 +210,14 @@
 				2E04DA9426F1CCE600B6574D /* TextField+Extension.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		2E5C964026F4610500FEED39 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2E5C964126F4611700FEED39 /* UserModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		373A15CC911D8CA221317399 /* Frameworks */ = {
@@ -480,6 +491,7 @@
 				2E45B87726F0C99F00EDF262 /* AppDelegate.swift in Sources */,
 				2E59085726F0E96300C709E6 /* Constants.swift in Sources */,
 				2E45B87926F0C99F00EDF262 /* SceneDelegate.swift in Sources */,
+				2E5C964226F4611700FEED39 /* UserModel.swift in Sources */,
 				2E59085426F0E53200C709E6 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

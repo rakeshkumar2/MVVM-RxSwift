@@ -31,7 +31,7 @@ class LoginViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let homeVC = segue.destination as? HomeViewController{
-            homeVC.username = self.userNameTextField.text!
+            homeVC.user = self.loginViewModel.user
         }
     }
     
@@ -42,10 +42,10 @@ class LoginViewController: UIViewController {
         self.passwordTextField.setLeftPaddingPoints(15)
         
         //User name Text field text binding
-        self.userNameTextField.rx.text.asObservable().map{$0 ?? ""}.bind(to: self.loginViewModel.username).disposed(by: disposeBag)
+        self.userNameTextField.rx.text.asObservable().map{$0 ?? ""}.bind(to: self.loginViewModel.user.value.username).disposed(by: disposeBag)
        
         //password text field text binding
-        self.passwordTextField.rx.text.asObservable().map{$0 ?? ""}.bind(to: self.loginViewModel.password).disposed(by: disposeBag)
+        self.passwordTextField.rx.text.asObservable().map{$0 ?? ""}.bind(to: self.loginViewModel.user.value.password).disposed(by: disposeBag)
         
         //login button binding
         loginViewModel.isLoginButtonEnable.map{$0 ? 1 : 0.4}.bind(to: loginButton.rx.alpha).disposed(by: disposeBag)

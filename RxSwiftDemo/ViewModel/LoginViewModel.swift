@@ -14,14 +14,13 @@ class LoginViewModel{
     
     let isUsernameError = PublishSubject<Bool>()
     let isPasswordError = PublishSubject<Bool>()
-    
-    let username = PublishSubject<String>()
-    let password = PublishSubject<String>()
    
+    let user = BehaviorRelay<UserModel>(value: UserModel())
     
     var isLoginButtonEnable: Observable<Bool> {
         //Validate fields
-        return Observable.combineLatest(username.asObservable().startWith(""), password.asObservable().startWith("")) { name, password in
+        return Observable.combineLatest(user.value.username.asObservable().startWith(""), user.value.password.asObservable().startWith("")) { name, password in
+            
             self.isUsernameError.onNext(true)
             self.isPasswordError.onNext(true)
 
@@ -37,7 +36,7 @@ class LoginViewModel{
                 //Check if password is valid or not
             }else if !Validations().isValidPassword(password: password) && !password.isEmpty{
                 self.isPasswordError.onNext(false)
-             //   self.error.onNext(LoginTextFieldError(type: .password, errorString: Constants.AthenticationErrorMessage.incorrectPassword))
+            
                 return false
             }else if !password.isEmpty && !name.isEmpty{
             
